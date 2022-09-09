@@ -1,0 +1,20 @@
+{
+    "presets": [
+        [
+            "@babel/preset-env",
+            {
+                "useBuiltIns": "usage",
+                // // "useBuiltIns": "entry",
+                // // "useBuiltIns": false,
+                "corejs": "3"
+            }
+        ],
+        "@babel/preset-typescript", // 引用Typescript预设
+        "@babel/preset-react"
+    ],
+    "plugins": [
+        [
+            "@babel/plugin-transform-runtime"
+        ]
+    ]
+}

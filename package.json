@@ -1,0 +1,52 @@
+{
+  "name": "yan-cli",
+  "version": "1.0.0",
+  "description": "superyan-react 脚手架",
+  "main": "main.tsx",
+  "scripts": {
+    "dev": "cross-env MODE=development webpack-dev-server --config ./config/webpack.config.js",
+    "staging": "cross-env MODE=staging webpack",
+    "build": "cross-env MODE=production webpack --config ./config/webpack.config.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/1315007322/yan-cli.git"
+  },
+  "author": "yanhengfu",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/1315007322/yan-cli/issues"
+  },
+  "homepage": "https://github.com/1315007322/yan-cli#readme",
+  "devDependencies": {
+    "@babel/core": "^7.18.13",
+    "@babel/plugin-transform-runtime": "^7.18.10",
+    "@babel/preset-env": "^7.18.10",
+    "@babel/preset-react": "^7.18.6",
+    "@babel/preset-typescript": "^7.18.6",
+    "babel-loader": "^8.2.5",
+    "clean-webpack-plugin": "^4.0.0",
+    "core-js": "^3.25.0",
+    "cross-env": "^7.0.3",
+    "html-webpack-plugin": "^5.5.0",
+    "style-loader": "^3.3.1",
+    "typescript": "^4.8.2",
+    "webpack": "^5.74.0",
+    "webpack-cli": "^4.10.0",
+    "webpack-dev-server": "^4.10.1"
+  },
+  "browserslist": [
+    "> 0.5%",
+    "last 2 versions",
+    "Firefox ESR"
+  ],
+  "dependencies": {
+    "@types/react-dom": "^18.0.6",
+    "antd": "^4.23.0",
+    "css-loader": "^6.7.1",
+    "history": "^5.3.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "6"
+  }
+}
