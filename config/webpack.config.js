@@ -7,18 +7,18 @@ const config = {
     mode: 'development',
     entry: "./src/main.tsx", // 入口文件
     resolve: {
-        extensions: ['.tsx','.ts','json', '...'],
+        extensions: ['.tsx', '.ts', 'json', '...'],
         alias: {
-            Src: path.resolve(__dirname,'../src'),
-            Utils: path.resolve(__dirname,'../utils'),
-            Assets: path.resolve(__dirname,'../assets')
+            Src: path.resolve(__dirname, '../src'),
+            Utils: path.resolve(__dirname, '../utils'),
+            Assets: path.resolve(__dirname, '../assets')
         }
     },
     module: {
         rules: [
             //处理js
             {
-                test: /\.(jsx|tsx)?$/,
+                test: /\.(ts|jsx|tsx)?$/,
                 use: ['babel-loader'],
                 exclude: /node_modules/
             },
@@ -62,7 +62,7 @@ const config = {
     },
     devServer: {
         static: path.resolve(__dirname, "./dist"), // 静态文件目录
-        port: 8080, // 端口号
+        port: 8081, // 端口号
         hot: true,
         open: true
     },
