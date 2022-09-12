@@ -1,29 +1,51 @@
 import { Button, Checkbox, Form, Input, message, Modal } from "antd"
-import { useState } from "react";
-import { register } from 'Src/api/home'
+import { login, register } from 'Src/api/home'
 
 const LoginOrRegModal = (props: {
     open: boolean,
     handleOk: () => void,
     handleCancel: () => void,
-    type: 'LOGIN' | 'REGISTER'
+    type: 'LOGIN' | 'REGISTER',
+    changeType: (type: 'LOGIN' | 'REGISTER') => void
+
 }) => {
 
-    const { open, handleOk, handleCancel, type } = props
+    const { open, handleOk, handleCancel, type, changeType } = props
+
+    const [form] = Form.useForm();
 
     const onFinish = (values: any) => {
         console.log('Success:', values);
-        register(values).then(
-            res => {
-                message.success("请求成功")
-                console.log(res);
-                handleOk()
-            }
-        ).catch(e => {
-            console.log("e", e);
-            message.error("请求失败")
+        if (type === "LOGIN") {
+            login(values).then(
+                (res: any) => {
+                    message.success("登录成功")
 
-        })
+                    localStorage.setItem("token", res.token)
+                    localStorage.setItem("user", JSON.stringify(res.user))
+
+                    console.log(res);
+                    form.resetFields();
+                    handleOk()
+                }
+            ).catch(e => {
+                console.log("e", e);
+                message.error("登录失败")
+            })
+        } else {
+            register(values).then(
+                res => {
+                    message.success("注册成功，请登录~")
+                    console.log(res);
+                    form.resetFields();
+                    changeType("LOGIN")
+                    handleOk()
+                }
+            ).catch(e => {
+                console.log("e", e);
+            })
+        }
+
 
     };
 
@@ -37,10 +59,10 @@ const LoginOrRegModal = (props: {
         <Modal
             title={type == "LOGIN" ? "登录" : "注册"}
             open={open}
-            onOk={handleOk}
-            onCancel={handleCancel}
-            okText={"提交"}
-            cancelText={"取消"}
+            onCancel={() => {
+                form.resetFields();
+                handleCancel()
+            }}
             footer={null}
         >
             <Form
@@ -51,6 +73,7 @@ const LoginOrRegModal = (props: {
                 onFinish={onFinish}
                 onFinishFailed={onFinishFailed}
                 autoComplete="off"
+                form={form}
             >
                 <Form.Item
                     label="用户名"

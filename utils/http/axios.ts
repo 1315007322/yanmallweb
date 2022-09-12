@@ -1,3 +1,4 @@
+import { message } from 'antd';
 import axios from 'axios';
 
 const http = axios.create({
@@ -10,6 +11,11 @@ const http = axios.create({
 
 // 添加请求拦截器
 http.interceptors.request.use(function (config) {
+    config.headers = {
+        ...config.headers,
+        "token": localStorage.getItem("token")
+    }
+    localStorage.getItem("token")
     // 在发送请求之前做些什么
     return config;
 }, function (error) {
@@ -18,10 +24,18 @@ http.interceptors.request.use(function (config) {
 });
 
 // 添加响应拦截器
-http.interceptors.response.use(function (response) {
+http.interceptors.response.use(function (response: any) {
+    const data = response.data;
     // 2xx 范围内的状态码都会触发该函数。
     // 对响应数据做点什么
-    return response;
+    if (data.code % 1000 === 0) {
+        console.log("拦截器成功");
+        return data.data;
+    } else {
+        message.error(data.message)
+        return Promise.reject()
+    }
+
 }, function (error) {
     // 超出 2xx 范围的状态码都会触发该函数。
     // 对响应错误做点什么

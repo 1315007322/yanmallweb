@@ -1,6 +1,6 @@
 
-import { Breadcrumb, Layout, Menu, Carousel, Button } from 'antd';
-import { useState } from 'react';
+import { Breadcrumb, Layout, Menu, Carousel, Button, message } from 'antd';
+import { useEffect, useState } from 'react';
 import LoginOrRegModal from './components/LoginOrRegModal';
 const { Header, Content, Footer } = Layout;
 
@@ -15,10 +15,13 @@ const contentStyle: React.CSSProperties = {
 
 
 const Home: React.FC = () => {
-    const [open, setOpen] = useState(true);
+    const [open, setOpen] = useState(false);
     const [type, setType] = useState<'LOGIN' | 'REGISTER'>('LOGIN');
+    const [user, setUser] = useState<any>(JSON.parse(localStorage.getItem("user") || '{}'));
 
-
+    useEffect(() => {
+        setUser(JSON.parse(localStorage.getItem("user") || '{}'))
+    }, [type, open])
     const onChange = (currentSlide: number) => {
         console.log(currentSlide);
     };
@@ -40,23 +43,48 @@ const Home: React.FC = () => {
     }
 
 
+    const loginOut = () => {
+        setUser({})
+        localStorage.clear()
+        message.success("退出成功")
+    }
 
     return (
         <Layout className="layout">
             <Header>
-                <div className="logo" />
-                <div>
-                    <Button
-                        style={{ marginRight: '30px' }}
-                        onClick={() => handleLoginOrReg("REGISTER")}
-                    >
-                        注册
-                    </Button>
-                    <Button onClick={() => handleLoginOrReg("LOGIN")} >
-                        登录
-                    </Button>
+                <div className="logo" >
+
                 </div>
-            </Header>
+                <div>
+                    {user.username != null ? (
+                        <div>
+                            <div style={{ color: '#fff' }}>
+                                欢迎： {user.username} !!
+                                <Button
+                                    style={{ marginLeft: '30px' }}
+                                    onClick={() => loginOut()}
+                                >
+                                    退出登录
+                                </Button>
+                            </div>
+
+                        </div>
+
+                    ) : (<div>
+                        <Button
+                            style={{ marginRight: '30px' }}
+                            onClick={() => handleLoginOrReg("REGISTER")}
+                        >
+                            注册
+                        </Button>
+                        <Button onClick={() => handleLoginOrReg("LOGIN")} >
+                            请登录
+                        </Button>
+                    </div>
+
+                    )}
+                </div>
+            </Header >
             <Content
                 style={{
                     padding: '0 50px',
@@ -103,6 +131,9 @@ const Home: React.FC = () => {
                 handleOk={handleOk}
                 handleCancel={handleCancel}
                 type={type}
+                changeType={(type: "LOGIN" | "REGISTER") => {
+                    setType(type)
+                }}
             />
         </Layout >
 
