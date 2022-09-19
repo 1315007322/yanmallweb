@@ -1,4 +1,4 @@
-import 'Assets/common.css'
+import 'Assets/common.less'
 import { createRoot } from "react-dom/client";
 import { history, HistoryRouter } from 'Utils/route'
 import Layout from 'antd/lib/layout/layout';

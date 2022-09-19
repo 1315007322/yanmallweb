@@ -7,7 +7,7 @@ const index = () => {
                 textAlign: 'center',
             }}
         >
-            Ant Design ©2018 Created by Ant UED
+            Yan Mall by <a href="https://github.com/1315007322">SuperYan</a>
         </Footer>
     )
 }
