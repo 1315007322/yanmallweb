@@ -15,22 +15,18 @@ const LoginOrRegModal = (props: {
     const [form] = Form.useForm();
 
     const onFinish = (values: any) => {
-        console.log('Success:', values);
         if (type === "LOGIN") {
             login(values).then(
                 (res: any) => {
                     message.success("登录成功")
-
                     localStorage.setItem("token", res.token)
                     localStorage.setItem("user", JSON.stringify(res.user))
-
                     console.log(res);
                     form.resetFields();
                     handleOk()
                 }
             ).catch(e => {
                 console.log("e", e);
-                message.error("登录失败")
             })
         } else {
             register(values).then(
