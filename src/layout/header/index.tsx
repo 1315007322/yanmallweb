@@ -65,7 +65,7 @@ const index = () => {
     return (
         <Header id="header">
             <div className="logo" >
-                <img src={logo} alt="" />
+                <img src={logo} alt="" onClick={() => history.push("/")} style={{cursor: "pointer"}}/>
             </div>
             <div>
                 {user.username != null ? (

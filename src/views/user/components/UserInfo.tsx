@@ -1,6 +1,23 @@
 import { Button, Descriptions } from "antd"
+import { useEffect } from "react"
+import { UserApiModule } from 'Src/api'
+
 
 const UserInfo = () => {
+
+    const userId = JSON.parse(localStorage.getItem("user") || "{}").id
+
+
+    useEffect(() => {
+        getUserDetail()
+    },[])
+
+    const getUserDetail = async () => {
+        const res = await UserApiModule.getUserDetailById(userId)
+        console.log(res);
+        
+    }
+
     return (
         <Descriptions
             title="User Info"

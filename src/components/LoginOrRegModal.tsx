@@ -1,5 +1,5 @@
 import { Button, Checkbox, Form, Input, message, Modal } from "antd"
-import { login, register } from 'Src/api/home'
+import {HomeApiModule} from 'Src/api' 
 
 const LoginOrRegModal = (props: {
     open: boolean,
@@ -16,7 +16,7 @@ const LoginOrRegModal = (props: {
 
     const onFinish = (values: any) => {
         if (type === "LOGIN") {
-            login(values).then(
+            HomeApiModule.login(values).then(
                 (res: any) => {
                     message.success("登录成功")
                     localStorage.setItem("token", res.token)
@@ -29,7 +29,7 @@ const LoginOrRegModal = (props: {
                 console.log("e", e);
             })
         } else {
-            register(values).then(
+            HomeApiModule.register(values).then(
                 res => {
                     message.success("注册成功，请登录~")
                     console.log(res);
